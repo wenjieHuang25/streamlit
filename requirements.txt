@@ -1,2 +1,2 @@
-joblib==1.1.0
-pandas==1.4.2
+joblib
+pandas
