@@ -69,9 +69,9 @@ if st.button('Submit'):
 
         # 加载模型
         if input_data['Year'].iloc[0] == 1:
-            loaded_model = joblib.load('../model/5年发病率best_model.pkl')
+            loaded_model = joblib.load('model/5年发病率best_model.pkl')
         else:
-            loaded_model = joblib.load('../model/3年发病率best_model.pkl')
+            loaded_model = joblib.load('model/3年发病率best_model.pkl')
         prediction = loaded_model.predict(input_data.iloc[:, 1:])
         st.subheader('Prediction')
         st.write(f'The predicted outcome is: {prediction[0]}')
