@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
+from sklearn.svm import SVC
 
 # 设置页面标题
 st.title('Predict the one-year/three-year prevalence of myopia')
