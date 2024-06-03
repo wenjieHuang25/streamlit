@@ -3,18 +3,25 @@ import pandas as pd
 import joblib
 
 # 设置页面标题
-st.title('Prevalence of myopia in 1 or 3 years')
+st.title('Predict the one-year/three-year prevalence of myopia')
 
 # 用户输入
 year = st.selectbox('Number of years', ['', '1 year', '3 years'], index=0, key='year')
-grade = st.slider('Grade', 0, 100, 0, key='grade')
-sex = st.selectbox('Sex', ['', 'Man', 'Woman'], index=0, key='sex')
+grade = st.slider('Grade', 4, 20, 4, key='grade')
+sex = st.selectbox('Sex', ['', 'Boy', 'Girl'], index=0, key='sex')
 resident = st.selectbox('Resident', ['', 'urban', 'village'], index=0, key='resident')
 bmi = st.number_input('BMI', min_value=0.0, max_value=100.0, step=0.1, key='bmi')
 parental_myopia = st.selectbox('Do either of your parents have myopia?', ['', 'Yes', 'No'], index=0, key='parental_myopia')
-parental_education = st.selectbox('Your parents educational background?', ['', 'High school and below', 'Bachelor', 'Master or above'], index=0, key='parental_education')
+parental_education = st.selectbox('Your parents educational background', ['', 'High school and below', 'Bachelor', 'Master or above'], index=0, key='parental_education')
 academic_pressure = st.selectbox('Do you have academic pressure?', ['', 'Yes', 'No'], index=0, key='academic_pressure')
 bad_writing_habits = st.selectbox('How many bad writing habits do you have?', ['', '0', '1', '2', '3', '4', '5'], index=0, key='bad_writing_habits')
+# 添加文字注释
+st.write("The bad writing habits include:")
+st.write("① When reading or writing, the distance between the eyes and the table is less than 33cm.")
+st.write("② When reading or writing, the distance of the chest from the table is less than the width of a punch.")
+st.write("③ When writing, the distance between the hand and the tip of the pen is less than 3.3cm.")
+st.write("④ Do you often tilt your head when reading or writing?")
+st.write("⑤ Do you often read or write on your stomach?")
 work_study_time_per_day = st.selectbox('Working/Studying time per day', ['', '<6h', '6-8h', '8-10h', '>10h'], index=0, key='work_study_time_per_day')
 continuous_work_study_time_per_day = st.selectbox('Continuous working/studying time per day', ['', '<1h', '1-2h', '2-3h', '>3h'], index=0, key='continuous_work_study_time_per_day')
 screen_time = st.selectbox('Screen time per day', ['', '<0.5h', '0.5-1h', '1-2h', '>2h'], index=0, key='screen_time')
@@ -25,7 +32,7 @@ frequency_of_sugary_snack = st.selectbox('Frequency of sugary snack', ['', 'less
 # 创建映射字典
 mapping = {
     'Year': {'1 year': 1, '3 years': 3},
-    'Sex': {'Man': 1, 'Woman': 2},
+    'Sex': {'Boy': 1, 'Girl': 2},
     'Resident': {'urban': 1, 'village': 0},
     'Parental_myopia': {'Yes': 1, 'No': 0},
     'Parental_education': {'High school and below': 1, 'Bachelor': 2, 'Master or above': 3},
@@ -74,5 +81,4 @@ if st.button('Submit'):
             loaded_model = joblib.load('model/3年发病率best_model.pkl')
         prediction = loaded_model.predict(input_data.iloc[:, 1:])
         st.subheader('Prediction')
-        st.write(f'The predicted outcome is: {prediction[0]}')
-
+        st.write(f'Prob (Yes) of '+str(input_data['Year'].iloc[0])+'-year prevalence of myopia is: ',prediction[0])
