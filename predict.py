@@ -10,7 +10,7 @@ st.title('Predict the one-year/three-year prevalence of myopia')
 year = st.selectbox('Number of years', ['', '1 year', '3 years'], index=0, key='year')
 grade = st.slider('Grade', 4, 20, 4, key='grade')
 sex = st.selectbox('Sex', ['', 'Boy', 'Girl'], index=0, key='sex')
-resident = st.selectbox('Resident', ['', 'urban', 'village'], index=0, key='resident')
+resident = st.selectbox('Resident', ['', 'Urban', 'Village'], index=0, key='resident')
 bmi = st.number_input('BMI', min_value=0.0, max_value=100.0, step=0.1, key='bmi')
 parental_myopia = st.selectbox('Do either of your parents have myopia?', ['', 'Yes', 'No'], index=0, key='parental_myopia')
 parental_education = st.selectbox('Your parents educational background', ['', 'High school and below', 'Bachelor', 'Master or above'], index=0, key='parental_education')
@@ -28,7 +28,7 @@ continuous_work_study_time_per_day = st.selectbox('Continuous working/studying t
 screen_time = st.selectbox('Screen time per day', ['', '<0.5h', '0.5-1h', '1-2h', '>2h'], index=0, key='screen_time')
 sleep_time = st.selectbox('Sleeping time per day', ['', '<7h', '7-9h', '>9h'], index=0, key='sleep_time')
 outdoor_time = st.selectbox('Outdoor time per day', ['', '<1h', '1-2h', '2-3h', '>3h'], index=0, key='outdoor_time')
-frequency_of_sugary_snack = st.selectbox('Frequency of sugary snack', ['', 'less than once per month', 'monthly', 'weekly', 'daily'], index=0, key='frequency_of_sugary_snack')
+frequency_of_sugary_snack = st.selectbox('Frequency of sugary snack', ['', 'Less than once per month', 'Monthly', 'Weekly', 'Daily'], index=0, key='frequency_of_sugary_snack')
 
 # 创建映射字典
 mapping = {
@@ -80,6 +80,10 @@ if st.button('Submit'):
             loaded_model = joblib.load('model/5年发病率best_model.pkl')
         else:
             loaded_model = joblib.load('model/3年发病率best_model.pkl')
-        prediction = loaded_model.predict(input_data.iloc[:, 1:])
-        st.subheader('Prediction')
-        st.write(f'Prob (Yes) of '+str(input_data['Year'].iloc[0])+'-year prevalence of myopia is: ',prediction[0])
+        prediction_proba = loaded_model.predict_proba(input_data.iloc[:, 1:])
+        probability_of_class_1 = prediction_proba[:, 1]  # 获取类别1的概率值
+        #prediction = loaded_model.predict(input_data.iloc[:, 1:])
+        #st.subheader('Prediction')
+        #st.write(f'Prob (Yes) of '+str(input_data['Year'].iloc[0])+'-year prevalence of myopia is: ',prediction[0])
+        st.subheader('Prediction Probability')
+        st.write(f'Prob (Yes) of '+str(input_data['Year'].iloc[0])+'-year prevalence of myopia is: ', probability_of_class_1[0])
