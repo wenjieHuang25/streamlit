@@ -86,4 +86,4 @@ if st.button('Submit'):
         #st.subheader('Prediction')
         #st.write(f'Prob (Yes) of '+str(input_data['Year'].iloc[0])+'-year prevalence of myopia is: ',prediction[0])
         st.subheader('Prediction Probability')
-        st.write(f'Prob (Yes) of '+str(input_data['Year'].iloc[0])+'-year prevalence of myopia is: ', probability_of_class_1[0])
+        st.write(f'Prob (Yes) of '+str(input_data['Year'].iloc[0])+'-year prevalence of myopia is: ', prediction_proba, probability_of_class_1)
