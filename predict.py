@@ -34,7 +34,7 @@ frequency_of_sugary_snack = st.selectbox('Frequency of sugary snack', ['', 'Less
 mapping = {
     'Year': {'1 year': 1, '3 years': 3},
     'Sex': {'Boy': 1, 'Girl': 2},
-    'Resident': {'urban': 1, 'village': 0},
+    'Resident': {'Urban': 1, 'Village': 0},
     'Parental_myopia': {'Yes': 1, 'No': 0},
     'Parental_education': {'High school and below': 1, 'Bachelor': 2, 'Master or above': 3},
     'Academic_pressure': {'Yes': 1, 'No': 0},
@@ -44,7 +44,7 @@ mapping = {
     'Screen_time': {'<0.5h': 1, '0.5-1h': 2, '1-2h': 3, '>2h': 4},
     'Sleep_time': {'<7h': 1, '7-9h': 2, '>9h': 3},
     'Outdoor_time': {'<1h': 1, '1-2h': 2, '2-3h': 3, '>3h': 4},
-    'Frequency_of_sugary_snack': {'less than once per month': 1, 'monthly': 2, 'weekly': 3, 'daily': 4}
+    'Frequency_of_sugary_snack': {'Less than once per month': 1, 'Monthly': 2, 'Weekly': 3, 'Daily': 4}
 }
 
 # 检查所有必填项是否已填写
