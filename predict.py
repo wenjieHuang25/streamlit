@@ -4,7 +4,7 @@ import joblib
 from sklearn.svm import SVC
 
 # 设置页面标题
-st.title('Predict the one-year/three-year prevalence of myopia')
+st.title('Predict the 1-year/3-year prevalence of myopia')
 
 # 用户输入
 year = st.selectbox('Number of years', ['', '1 year', '3 years'], index=0, key='year')
